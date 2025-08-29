@@ -13,10 +13,12 @@ import OurTestimonials from './components/OurTestimonial';
 
 function App() {
   // Important: Use basename for React Router to handle the /ssssmarttech prefix
-  const basename = process.env.NODE_ENV === 'production' ? '/ssssmarttech' : '';
+  // const basename = process.env.NODE_ENV === 'production' ? '/ssssmarttech' : '';
 
   return (
-    <BrowserRouter basename={basename}>
+    <BrowserRouter
+    //  basename={basename}
+     >
       <div className="min-h-screen">
         <Header />
         <Hero />

@@ -1,7 +1,17 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
-require('dotenv').config();
+const path = require('path');
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config({ path: "./.env" });
+}
+
+// Add debugging
+console.log('=== Environment Variables Check ===');
+console.log('NODE_ENV:', process.env.NODE_ENV);
+console.log('GMAIL_USER:', process.env.GMAIL_USER ? 'Set' : 'Not Set');
+console.log('GMAIL_APP_PASSWORD:', process.env.GMAIL_APP_PASSWORD ? 'Set' : 'Not Set');
+console.log('======================================');
 
 const app = express();
 app.use(cors());
@@ -27,7 +37,7 @@ transporter.verify((error, success) => {
 });
 
 // Email sending endpoint
-app.post('/send-email', async (req, res) => {
+app.post('/api/send-email', async (req, res) => {
     const { name, email, company, service, budget, message } = req.body;
 
     const mailOptions = {
@@ -226,8 +236,19 @@ app.post('/send-email', async (req, res) => {
 });
 
 // Health check endpoint
-app.get('/health', (req, res) => {
+app.get('/api/health', (req, res) => {
     res.json({ status: 'Server is running' });
+});
+
+
+// ---------- Serve React Frontend ----------
+// Serve static files
+const frontendPath = path.join(__dirname, 'frontend', 'build');
+app.use(express.static(frontendPath));
+
+// Catch-all for React Router (LAST)
+app.get('/*catchall', (req, res) => {
+    res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
 const PORT = process.env.PORT || 3001;

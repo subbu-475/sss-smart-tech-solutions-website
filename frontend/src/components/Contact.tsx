@@ -28,7 +28,7 @@ const Contact: React.FC = () => {
     setIsSubmitting(true);
 
     // Use environment variable for API URL with fallback
-    const apiUrl = import.meta.env.VITE_API_URL;
+    const apiUrl = import.meta.env.VITE_API_URL || "/api";
 
     try {
       const response = await fetch(`${apiUrl}/send-email`, {
