@@ -42,8 +42,8 @@ app.post('/api/send-email', async (req, res) => {
 
     const mailOptions = {
         from: `"${name}" <${email}>`,
-        // to: 'support@ssssmarttech.com',
-        to: 'personalforchatgpt@gmail.com',
+        to: 'support@ssssmarttech.com',
+        // to: 'personalforchatgpt@gmail.com',
         subject: `🔔 New Contact Inquiry from ${name} | SSS Smart Tech`,
         html: `
     <!DOCTYPE html>
