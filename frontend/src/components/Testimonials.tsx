@@ -11,7 +11,7 @@ import CycatzLogo from "../assets/logos/cycatz.png";
 import CytrustLogo from "../assets/logos/cytrust.png";
 
 const companies = [
-  { name: "Apec Covantage", logo: ApecLogo },
+  { name: "Apex Covantage", logo: ApecLogo },
   { name: "Tholga Publishing Services", logo: TholgaLogo },
   { name: "Technavious", logo: TechnaviousLogo },
   { name: "Unique Engineering Groups", logo: UniqueLogo },
@@ -23,12 +23,14 @@ const companies = [
 
 const Testimonials: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [logoIndex, setLogoIndex] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(5);
 
   const testimonials = [
     {
       name: 'Rajesh Kumar',
       position: 'Director',
-      company: 'Apec Covantage',
+      company: 'Apex Covantage',
       avatar: 'https://images.pexels.com/photos/7397453/pexels-photo-7397453.jpeg',
       rating: 5,
       text: 'SSS Smart Tech transformed our entire data infrastructure. Their expertise in data modernization helped us reduce costs by 60% while improving performance dramatically. The team is incredibly professional and responsive.',
@@ -80,10 +82,49 @@ const Testimonials: React.FC = () => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length);
   };
 
+  // Handle responsive logo count
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setVisibleCount(2); // Mobile: 2 logos
+      } else if (width < 768) {
+        setVisibleCount(3); // Small tablet: 3 logos
+      } else if (width < 1024) {
+        setVisibleCount(4); // Tablet: 4 logos
+      } else {
+        setVisibleCount(5); // Desktop: 5 logos
+      }
+    };
+
+    handleResize(); // Initial check
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Auto-scroll testimonials
   useEffect(() => {
     const interval = setInterval(nextTestimonial, 5000);
     return () => clearInterval(interval);
   }, []);
+
+  // Auto-scroll logos
+  useEffect(() => {
+    const logoInterval = setInterval(() => {
+      setLogoIndex((prevIndex) => (prevIndex + 1) % companies.length);
+    }, 3000);
+    return () => clearInterval(logoInterval);
+  }, []);
+
+  // Get visible logos based on screen size
+  const getVisibleLogos = () => {
+    const visibleLogos = [];
+    for (let i = 0; i < visibleCount; i++) {
+      const index = (logoIndex + i) % companies.length;
+      visibleLogos.push({ ...companies[index], id: `${index}-${i}` });
+    }
+    return visibleLogos;
+  };
 
   return (
     <section className="py-2 bg-white">
@@ -172,22 +213,53 @@ const Testimonials: React.FC = () => {
           </div>
         </div>
 
-        {/* Client Logos */}
+        {/* Responsive Client Logos Carousel */}
         <div className="mt-20">
           <p className="text-center text-gray-600 mb-8 text-lg font-medium">
             Trusted by Industry Leaders
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-8 items-center opacity-80">
-            {companies.map((company, index) => (
-              <div key={index} className="flex flex-col items-center text-center">
-                <img
-                  src={company.logo}
-                  alt={`${company.name} Logo`}
-                  className="h-12 w-auto object-contain mb-2 transition duration-300"
-                />
-                <div className="text-sm font-medium text-gray-700">{company.name}</div>
+          
+          <div className="relative overflow-hidden px-2">
+            {/* Container for scrolling logos with proper spacing */}
+            <div className="flex justify-center">
+              <div className="flex space-x-4 sm:space-x-6 md:space-x-8 lg:space-x-12 items-start transition-transform duration-500 ease-in-out">
+                {getVisibleLogos().map((company, index) => (
+                  <div
+                    key={company.id}
+                    className="flex flex-col items-center text-center flex-shrink-0 opacity-80 hover:opacity-100 transition-opacity duration-300"
+                    style={{ minWidth: 'fit-content', maxWidth: '120px' }}
+                  >
+                    <div className="h-16 w-20 sm:w-24 md:w-28 flex items-center justify-center mb-3">
+                      <img
+                        src={company.logo}
+                        alt={`${company.name} Logo`}
+                        className="max-h-12 w-auto object-contain transition-transform duration-300 hover:scale-110"
+                      />
+                    </div>
+                    <div className="text-xs sm:text-sm font-medium text-gray-700 text-center leading-tight px-1 max-w-full overflow-hidden">
+                      <div className="truncate" title={company.name}>
+                        {company.name}
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+            
+            {/* Progress indicator dots */}
+            <div className="flex justify-center mt-8 space-x-2">
+              {companies.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setLogoIndex(index)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    index === logoIndex
+                      ? 'bg-gradient-to-r from-[#322679] to-[#0A8836] w-6'
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>

@@ -93,7 +93,7 @@ const Services: React.FC = () => {
   ];
 
   return (
-    <section id="services" className="py-2 bg-white">
+    <section id="services" className="py-2 bg-white mb-4" style={{ scrollMarginTop: '80px' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">

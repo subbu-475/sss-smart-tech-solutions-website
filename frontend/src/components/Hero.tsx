@@ -4,7 +4,7 @@ import CountUp from 'react-countup';
 
 const Hero: React.FC = () => {
   return (
-    <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center overflow-hidden" style={{ scrollMarginTop: '80px' }}>
       {/* Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#322679] via-[#322679]/80 to-[#0A8836]">
         <div className="absolute inset-0 bg-black/20"></div>
@@ -35,9 +35,16 @@ const Hero: React.FC = () => {
               </span>
             </h1>
 
-            <p className="text-xl text-white/90 mb-8 max-w-2xl animate-fadeInUp delay-400 text-justify">
-              {"At SSS Smart Tech, we deliver end-to-end data warehousing modernization along with a broad suite of digital solutions. From discovery to integration, our experts apply advanced data management, data engineering, visualization and modeling techniques to ensure reliable, high-quality data. We streamline ETL processes, enhance consistency, and use powerful visualization tools to unlock actionable insights. Beyond data, our services span Full-Stack Development, Language Editing (L1/L2/L3), Cybersecurity, Talent Management, and Career Support for College Students/Aspirants. With this comprehensive portfolio, we empower businesses and individuals to make informed decisions, build secure systems, and achieve sustainable growth."}
-            </p>
+            <div className="text-center mb-8">
+              <p className="text-xl text-white/90 mb-6 max-w-2xl mx-auto animate-fadeInUp delay-400 text-justify">
+                At SSS Smart Tech, we deliver end-to-end data warehousing modernization along with a broad suite of digital solutions. From discovery to integration, our experts apply advanced data management, data engineering, visualization and modeling techniques to ensure reliable, high-quality data. We streamline ETL processes, enhance consistency, and use powerful visualization tools to unlock actionable insights.
+              </p>
+
+              <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto animate-fadeInUp delay-600 text-justify">
+                Beyond data, our services span Full-Stack Development, Language Editing (L1/L2/L3), Cybersecurity, Talent Management, and Career Support for College Students/Aspirants. With this comprehensive portfolio, we empower businesses and individuals to make informed decisions, build secure systems, and achieve sustainable growth.
+              </p>
+            </div>
+
 
             <div className="flex flex-col sm:flex-row gap-4 mb-12 animate-fadeInUp delay-600">
               <a
@@ -95,7 +102,7 @@ const Hero: React.FC = () => {
               <img
                 src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=800&h=800&fit=crop"
                 alt="Technology Workspace"
-                className="relative w-full h-96 lg:h-[500px] object-cover rounded-3xl shadow-2xl"
+                className="relative w-full h-64 sm:h-80 lg:h-96 object-cover rounded-3xl shadow-2xl"
               />
 
               {/* Floating Cards */}

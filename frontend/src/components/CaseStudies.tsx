@@ -166,7 +166,7 @@ const CaseStudies: React.FC = () => {
   ];
 
   return (
-    <section id="case-studies" className="py-10 bg-gradient-to-br from-gray-50 to-white">
+    <section id="case-studies" className="py-10 bg-gradient-to-br from-gray-50 to-white" style={{ scrollMarginTop: '80px' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div

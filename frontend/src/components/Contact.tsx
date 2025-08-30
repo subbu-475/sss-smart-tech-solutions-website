@@ -143,7 +143,7 @@ const Contact: React.FC = () => {
   ];
 
   return (
-    <section id="contact" className="py-12 bg-gradient-to-br from-[#322679] via-[#322679]/80 to-[#0A8836] relative overflow-hidden">
+    <section id="contact" className="py-12 bg-gradient-to-br from-[#322679] via-[#322679]/80 to-[#0A8836] relative overflow-hidden" style={{ scrollMarginTop: '80px' }}>
       {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-10 w-4 h-4 bg-[#FEBB00] rounded-full animate-pulse"></div>
